@@ -210,7 +210,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 👨‍💻 Author
 
-Your Name - [Your GitHub Profile](https://github.com/yourusername)
+Your Name - [Devansh](https://github.com/anshudevansh)
 
 ## 🙏 Acknowledgments
 
@@ -218,6 +218,4 @@ Your Name - [Your GitHub Profile](https://github.com/yourusername)
 - Spring Boot community for excellent documentation
 - Chrome Extensions documentation and examples
 
----
 
-**Note**: This project is for educational and productivity purposes. Always review AI-generated content before sending emails.
