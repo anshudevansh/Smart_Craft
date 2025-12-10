@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            width: 360px;
+            min-height: 280px;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            overflow: hidden;
+        }
+
+        .container {
+            backdrop-filter: blur(20px);
+            background: rgba(255, 255, 255, 0.05);
+            height: 100%;
+        }
+
+        .header {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.1) 100%);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 16px 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #ffeaa7);
+            background-size: 300% 100%;
+            animation: shimmer 3s ease-in-out infinite;
+        }
+
+        @keyframes shimmer {
+
+            0%,
+            100% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+
+        .header h1 {
+            font-size: 18px;
+            font-weight: 700;
+            color: white;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            letter-spacing: 0.5px;
+        }
+
+        .content {
+            padding: 20px;
+        }
+
+        .input-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 16px;
+            padding: 18px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .input-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            background: #e0e7ff;
+            color: #4338ca;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .status-badge.success {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .status-badge.error {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .input-label {
+            font-size: 13px;
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e5e7eb;
+            border-radius: 10px;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            resize: vertical;
+            min-height: 70px;
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .helper-text {
+            font-size: 11px;
+            color: #6b7280;
+            margin-top: 6px;
+            font-style: italic;
+        }
+
+        .btn-generate {
+            width: 100%;
+            padding: 14px;
+            margin-top: 14px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-generate:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+        }
+
+        .btn-generate:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .loading.show {
+            display: block;
+        }
+
+        .spinner {
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-top: 3px solid white;
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 10px;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .loading-text {
+            color: white;
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .error-message {
+            background: #fee2e2;
+            border: 1px solid #fca5a5;
+            color: #991b1b;
+            padding: 10px 12px;
+            border-radius: 10px;
+            font-size: 12px;
+            margin-bottom: 14px;
+            display: none;
+        }
+
+        .error-message.show {
+            display: block;
+            animation: slideUp 0.4s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .pulse {
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.6;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>✨ AI Query Generator</h1>
+        </div>
+
+        <div class="content">
+            <!-- Error Message -->
+            <div class="error-message" id="errorMessage"></div>
+
+            <!-- Loading Indicator -->
+            <div class="loading" id="loading">
+                <div class="spinner"></div>
+                <div class="loading-text">Generating your email...</div>
+            </div>
+
+            <!-- Input Form -->
+            <div class="input-card" id="inputForm">
+                <div class="status-badge" id="statusBadge">
+                    <span class="pulse">📧</span>
+                    <span id="statusText">Reading email...</span>
+                </div>
+
+                <label class="input-label">💬 Your Query or Keywords</label>
+                <textarea class="input-field" id="userQuery"
+                    placeholder="E.g., 'Make it brief and polite' or 'suggest meeting tomorrow' or 'add thank you note'"></textarea>
+                <div class="helper-text">
+                    Tell the AI how you want to respond. Be specific!
+                </div>
+
+                <button class="btn-generate" id="generateBtn" disabled>
+                    Generate Email Reply
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE_URL = 'http://localhost:8080/api/email';
+
+        // DOM Elements
+        const userQueryInput = document.getElementById('userQuery');
+        const generateBtn = document.getElementById('generateBtn');
+        const loading = document.getElementById('loading');
+        const inputForm = document.getElementById('inputForm');
+        const errorMessage = document.getElementById('errorMessage');
+        const statusBadge = document.getElementById('statusBadge');
+        const statusText = document.getElementById('statusText');
+
+        let emailContent = '';
+
+        // Request email content from active Gmail tab
+        function requestEmailContent() {
+            chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+                if (tabs[0]) {
+                    chrome.tabs.sendMessage(
+                        tabs[0].id,
+                        { action: 'getEmailContent' },
+                        (response) => {
+                            if (chrome.runtime.lastError) {
+                                showError('Please open Gmail compose window first');
+                                updateStatus('error', '❌ No Gmail detected');
+                                return;
+                            }
+
+                            if (response && response.emailContent) {
+                                emailContent = response.emailContent;
+                                updateStatus('success', '✅ Email content loaded');
+                                generateBtn.disabled = false;
+                                userQueryInput.focus();
+                            } else {
+                                showError('No email content found. Please open a compose window.');
+                                updateStatus('error', '❌ No email found');
+                            }
+                        }
+                    );
+                }
+            });
+        }
+
+        // Update status badge
+        function updateStatus(type, text) {
+            statusBadge.className = `status-badge ${type}`;
+            statusText.textContent = text;
+        }
+
+        // Generate Email
+        generateBtn.addEventListener('click', async () => {
+            const userQuery = userQueryInput.value.trim();
+
+            // Validation
+            if (!userQuery) {
+                showError('Please enter your query or keywords');
+                return;
+            }
+
+            if (!emailContent) {
+                showError('No email content available. Please refresh.');
+                return;
+            }
+
+            // Hide error
+            hideError();
+
+            // Show loading
+            inputForm.style.display = 'none';
+            loading.classList.add('show');
+
+            try {
+                const requestBody = {
+                    emailContent: emailContent,
+                    userQuery: userQuery,
+                    tone: 'professional'
+                };
+
+                console.log('📤 Sending request:', requestBody);
+
+                const response = await fetch(`${API_BASE_URL}/generate-with-query`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(requestBody)
+                });
+
+                console.log('📥 Response status:', response.status);
+
+                if (!response.ok) throw new Error('API Request Failed');
+
+                // Get plain text response
+                const generatedReply = await response.text();
+                console.log('📥 Generated reply:', generatedReply);
+
+                // Send generated email back to Gmail
+                chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+                    if (tabs[0]) {
+                        console.log('📨 Sending insertEmail message to tab:', tabs[0].id);
+                        chrome.tabs.sendMessage(
+                            tabs[0].id,
+                            {
+                                action: 'insertEmail',
+                                emailContent: generatedReply
+                            },
+                            (response) => {
+                                console.log('📨 Insert response:', response);
+                                if (response && response.success) {
+                                    console.log('✅ Email inserted successfully, closing popup');
+                                    // Close popup after successful insertion
+                                    window.close();
+                                } else {
+                                    console.error('❌ Failed to insert:', response);
+                                    showError('Failed to insert email into Gmail');
+                                    inputForm.style.display = 'block';
+                                    loading.classList.remove('show');
+                                }
+                            }
+                        );
+                    }
+                });
+            } catch (error) {
+                console.error('❌ Error:', error);
+                showError('Network error: ' + error.message);
+                inputForm.style.display = 'block';
+                loading.classList.remove('show');
+            }
+        });
+
+        // Helper Functions
+        function showError(message) {
+            errorMessage.textContent = message;
+            errorMessage.classList.add('show');
+        }
+
+        function hideError() {
+            errorMessage.classList.remove('show');
+        }
+
+        // Initialize - Request email content when popup opens
+        document.addEventListener('DOMContentLoaded', () => {
+            requestEmailContent();
+        });
+
+        // Allow Enter key to submit (with Shift+Enter for new line)
+        userQueryInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                if (!generateBtn.disabled) {
+                    generateBtn.click();
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

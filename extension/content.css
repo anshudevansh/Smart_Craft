@@ -1,0 +1,303 @@
+/* SMART CRAFT Extension Styles */
+.smart-craft-indicator {
+    font-family: 'Google Sans', Roboto, Arial, sans-serif !important;
+    pointer-events: none;
+    animation: smartCraftFadeIn 0.3s ease-out;
+}
+
+@keyframes smartCraftFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-5px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Additional styles for future UI elements */
+/* .smart-craft-button {
+    background: #1a73e8 !important;
+    color: white !important;
+    border: none !important;
+    border-radius: 4px !important;
+    padding: 6px 12px !important;
+    font-size: 12px !important;
+    font-weight: 500 !important;
+    cursor: pointer !important;
+    margin: 4px !important;
+    transition: background-color 0.2s ease !important;
+}
+
+.smart-craft-button:hover {
+    background: #1557b0 !important;
+} */
+
+/* SmartCraft Button Styles */
+.smartcraft-btn {
+    padding: 8px 16px;
+    border: 1px solid #dadce0;
+    border-radius: 4px;
+    background: white;
+    color: #5f6368;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-left: 8px;
+}
+
+.smartcraft-btn:hover {
+    background: #f8f9fa;
+    border-color: #1a73e8;
+}
+
+/* Modal Overlay */
+.smartcraft-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 10000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: fadeIn 0.2s;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+/* Modal Content */
+.smartcraft-modal-content {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    max-width: 500px;
+    width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+    animation: slideUp 0.3s;
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(50px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.smartcraft-modal-header {
+    padding: 20px 24px;
+    border-bottom: 1px solid #e0e0e0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.smartcraft-modal-header h3 {
+    font-size: 18px;
+    font-weight: 500;
+    color: #202124;
+    margin: 0;
+}
+
+.smartcraft-modal-close {
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: #5f6368;
+    cursor: pointer;
+    padding: 0;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+}
+
+.smartcraft-modal-close:hover {
+    background: #f8f9fa;
+}
+
+.smartcraft-modal-body {
+    padding: 24px;
+}
+
+.smartcraft-section {
+    margin-bottom: 20px;
+}
+
+.smartcraft-section label {
+    display: block;
+    font-size: 13px;
+    font-weight: 500;
+    color: #5f6368;
+    margin-bottom: 8px;
+}
+
+.smartcraft-section textarea,
+.smartcraft-section select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #dadce0;
+    border-radius: 6px;
+    font-size: 14px;
+    font-family: inherit;
+}
+
+.smartcraft-section textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+.smartcraft-badge {
+    display: inline-block;
+    background: #e8f0fe;
+    color: #1a73e8;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 500;
+    margin-bottom: 8px;
+}
+
+.smartcraft-helper {
+    font-size: 12px;
+    color: #5f6368;
+    margin-top: 6px;
+    font-style: italic;
+}
+
+.smartcraft-chips {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+}
+
+.smartcraft-chip {
+    padding: 8px 12px;
+    border: 1px solid #dadce0;
+    border-radius: 16px;
+    background: white;
+    cursor: pointer;
+    font-size: 12px;
+    text-align: center;
+    transition: all 0.2s;
+}
+
+.smartcraft-chip:hover {
+    border-color: #1a73e8;
+    background: #e8f0fe;
+}
+
+.smartcraft-modal-footer {
+    padding: 16px 24px;
+    border-top: 1px solid #e0e0e0;
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+}
+
+.smartcraft-btn-cancel {
+    padding: 10px 24px;
+    border: 1px solid #dadce0;
+    border-radius: 6px;
+    background: white;
+    color: #5f6368;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.smartcraft-btn-generate {
+    padding: 10px 24px;
+    border: none;
+    border-radius: 6px;
+    background: #1a73e8;
+    color: white;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.smartcraft-btn-generate:hover {
+    background: #1557b0;
+}
+
+/* Loading */
+.smartcraft-loading {
+    text-align: center;
+    padding: 40px;
+}
+
+.smartcraft-spinner {
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #1a73e8;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 20px;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Notification */
+.smartcraft-notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: #34a853;
+    color: white;
+    padding: 16px 24px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    z-index: 10001;
+    animation: slideIn 0.3s;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(400px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideOut {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+
+    to {
+        transform: translateX(400px);
+        opacity: 0;
+    }
+}

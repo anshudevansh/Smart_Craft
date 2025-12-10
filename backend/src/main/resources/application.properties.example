@@ -1,0 +1,12 @@
+# Google Gemini API Configuration
+# Get your API key from: https://makersuite.google.com/app/apikey
+api.url=https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent
+api.key=YOUR_GEMINI_API_KEY_HERE
+
+# Server Configuration
+server.port=8080
+
+# Instructions:
+# 1. Copy this file and rename it to 'application.properties'
+# 2. Replace 'YOUR_GEMINI_API_KEY_HERE' with your actual Gemini API key
+# 3. Never commit the actual application.properties file to version control

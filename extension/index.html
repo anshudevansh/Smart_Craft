@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html>
+
+
+<head>
+
+    <meta charset="utf-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        body {
+            width: 360px;
+            min-height: 480px;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            overflow: hidden;
+            position: relative;
+        }
+
+
+        /* Animated background particles */
+        .bg-particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+
+        .particle {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+
+        .particle:nth-child(1) {
+            width: 8px;
+            height: 8px;
+            top: 20%;
+            left: 20%;
+            animation-delay: 0s;
+        }
+
+
+        .particle:nth-child(2) {
+            width: 12px;
+            height: 12px;
+            top: 60%;
+            left: 80%;
+            animation-delay: 2s;
+        }
+
+
+        .particle:nth-child(3) {
+            width: 6px;
+            height: 6px;
+            top: 80%;
+            left: 30%;
+            animation-delay: 4s;
+        }
+
+
+        .particle:nth-child(4) {
+            width: 10px;
+            height: 10px;
+            top: 40%;
+            left: 70%;
+            animation-delay: 1s;
+        }
+
+
+        .particle:nth-child(5) {
+            width: 14px;
+            height: 14px;
+            top: 10%;
+            left: 60%;
+            animation-delay: 3s;
+        }
+
+
+        @keyframes float {
+
+
+            0%,
+            100% {
+                transform: translateY(0px) rotate(0deg);
+                opacity: 0.7;
+            }
+
+
+            50% {
+                transform: translateY(-20px) rotate(180deg);
+                opacity: 1;
+            }
+        }
+
+
+        .container {
+            position: relative;
+            z-index: 1;
+            height: 100%;
+            backdrop-filter: blur(20px);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+
+        .header {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.1) 100%);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            text-align: center;
+            position: relative;
+        }
+
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #ffeaa7);
+            background-size: 300% 100%;
+            animation: shimmer 3s ease-in-out infinite;
+        }
+
+
+        @keyframes shimmer {
+
+
+            0%,
+            100% {
+                background-position: 0% 50%;
+            }
+
+
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+
+
+        .header h1 {
+            font-size: 22px;
+            font-weight: 700;
+            color: white;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+
+
+        .header .subtitle {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.8);
+            font-weight: 400;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+
+        .content {
+            padding: 24px;
+        }
+
+
+        .status-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+
+        .status-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+        }
+
+
+        .status-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+
+        .status-indicator {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            position: relative;
+            background: #10b981;
+            box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.2);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+
+        .status-indicator.inactive {
+            background: #ef4444;
+            box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.2);
+        }
+
+
+        .status-indicator.checking {
+            background: #f59e0b;
+            box-shadow: 0 0 0 4px rgba(245, 158, 11, 0.2);
+        }
+
+
+        @keyframes pulse {
+
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+
+            50% {
+                transform: scale(1.1);
+            }
+        }
+
+
+        .status-text {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1f2937;
+        }
+
+
+        .stats-grid {
+            display: grid;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 12px;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+
+        .stat-card:hover {
+            background: rgba(255, 255, 255, 0.95);
+            transform: translateX(4px);
+        }
+
+
+        .stat-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            color: white;
+            flex-shrink: 0;
+        }
+
+
+        .stat-icon.detections {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+        }
+
+
+        .stat-icon.time {
+            background: linear-gradient(135deg, #f093fb, #f5576c);
+        }
+
+
+        .stat-icon.gmail {
+            background: linear-gradient(135deg, #4facfe, #00f2fe);
+        }
+
+
+        .stat-info {
+            flex: 1;
+        }
+
+
+        .stat-label {
+            font-size: 12px;
+            color: #6b7280;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 2px;
+        }
+
+
+        .stat-value {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1f2937;
+        }
+
+
+        .refresh-btn {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+
+        .refresh-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+
+        .refresh-btn:hover::before {
+            left: 100%;
+        }
+
+
+        .refresh-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+        }
+
+
+        .refresh-btn:active {
+            transform: translateY(0);
+        }
+
+
+        .loading {
+            animation: spin 1s linear infinite;
+        }
+
+
+        @keyframes spin {
+            from {
+                transform: rotate(0deg);
+            }
+
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+
+        /* Glassmorphism effect enhancement */
+        .glass {
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+
+        /* Smooth reveal animation */
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+
+        .content>* {
+            animation: slideUp 0.6s ease-out forwards;
+        }
+
+
+        .content>*:nth-child(2) {
+            animation-delay: 0.1s;
+        }
+
+
+        .content>*:nth-child(3) {
+            animation-delay: 0.2s;
+        }
+
+
+        .content>*:nth-child(4) {
+            animation-delay: 0.3s;
+        }
+    </style>
+</head>
+
+
+<body>
+    <div class="bg-particles">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
+
+
+    <div class="container">
+        <div class="header">
+            <h1>🤖 SMART CRAFT</h1>
+            <div class="subtitle">Gmail Intelligence</div>
+        </div>
+
+
+        <div class="content">
+            <div class="status-card">
+                <div class="status-header">
+                    <div class="status-indicator checking" id="statusIndicator"></div>
+                    <span class="status-text" id="statusText">Checking Gmail...</span>
+                </div>
+            </div>
+
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon detections">📊</div>
+                    <div class="stat-info">
+                        <div class="stat-label">Compose Windows</div>
+                        <div class="stat-value" id="totalDetections">0</div>
+                    </div>
+                </div>
+
+
+                <div class="stat-card">
+                    <div class="stat-icon time">⏰</div>
+                    <div class="stat-info">
+                        <div class="stat-label">Last Detection</div>
+                        <div class="stat-value" id="lastDetection">Never</div>
+                    </div>
+                </div>
+
+
+                <div class="stat-card">
+                    <div class="stat-icon gmail">✉️</div>
+                    <div class="stat-info">
+                        <div class="stat-label">Gmail Status</div>
+                        <div class="stat-value" id="gmailActive">Inactive</div>
+                    </div>
+                </div>
+            </div>
+
+
+            <button class="refresh-btn" id="refreshBtn">
+                <span id="refreshText">Refresh Status</span>
+            </button>
+        </div>
+    </div>
+
+
+
+
+    <script>
+        function updateStatusUI({ composeCount, lastDetection, gmailActive }) {
+            document.getElementById('totalDetections').textContent = composeCount;
+            document.getElementById('lastDetection').textContent = lastDetection;
+            document.getElementById('gmailActive').textContent = gmailActive ? 'Active' : 'Inactive';
+
+            const statusIndicator = document.getElementById('statusIndicator');
+            statusIndicator.className = 'status-indicator ' +
+                (gmailActive ? '' : 'inactive');
+            document.getElementById('statusText').textContent =
+                gmailActive ? 'Gmail Active & Ready' : 'Gmail Inactive';
+        }
+
+        function showLoading() {
+            document.getElementById('refreshText').textContent = '🔄 Refreshing...';
+            document.getElementById('refreshBtn').disabled = true;
+        }
+        function hideLoading() {
+            document.getElementById('refreshText').textContent = 'Refresh Status';
+            document.getElementById('refreshBtn').disabled = false;
+        }
+
+        function fetchGmailStatus() {
+            chrome.storage.local.get(['composeCount', 'lastDetection', 'gmailActive'], result => {
+                const status = {
+                    composeCount: result.composeCount ?? 0,
+                    lastDetection: result.lastDetection ?? 'Never',
+                    gmailActive: Boolean(result.gmailActive)
+                };
+                updateStatusUI(status);
+            });
+        }
+
+        document.getElementById('refreshBtn').onclick = function () {
+            showLoading();
+            setTimeout(() => {
+                fetchGmailStatus();
+                hideLoading();
+            }, 400);
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            fetchGmailStatus();
+        });
+        chrome.storage.onChanged.addListener((changes, namespace) => {
+            if (namespace === 'local' &&
+                (changes.composeCount || changes.lastDetection || changes.gmailActive)) {
+                fetchGmailStatus();
+            }
+        });
+
+    </script>
+
+
+</body>
+<!-- <script src="content.js"></script> -->
+
+
+</html>
